@@ -2,7 +2,7 @@ package com.kamalova.realm.api.controller;
 
 import com.kamalova.realm.api.model.ApiError;
 import com.kamalova.realm.api.model.RealmRequest;
-import com.kamalova.realm.dto.Realm;
+import com.kamalova.realm.dao.Realm;
 import com.kamalova.realm.service.RealmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.kamalova.realm.service;
 
-import com.kamalova.realm.dto.Realm;
+import com.kamalova.realm.dao.Realm;
 import com.kamalova.realm.repository.RealmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
