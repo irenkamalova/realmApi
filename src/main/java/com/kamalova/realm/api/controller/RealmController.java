@@ -23,7 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(name = "realm", path = "/service/user")
 @Api(value = "Realm Management System")
-public class Controller {
+public class RealmController {
 
     @Autowired
     private RealmService realmService;
