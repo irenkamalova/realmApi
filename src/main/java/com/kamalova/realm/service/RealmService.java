@@ -17,17 +17,15 @@ public class RealmService {
         return realmRepository.findById(id);
     }
 
-    public boolean createRealm(String name, String description) {
+    public Realm createRealm(String name, String description) {
         try {
-            String secretKey = Double.valueOf(Math.random()).toString();
             Realm realm = new Realm(name,
                     description,
-                    secretKey);
-            realmRepository.save(realm);
-            return true;
+                    "secretKey");
+            return realmRepository.save(realm);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.kamalova.realm.api.controller;
 
-import com.kamalova.realm.api.model.ShortRealItem;
+import com.kamalova.realm.api.model.ApiError;
+import com.kamalova.realm.api.model.RealmRequest;
 import com.kamalova.realm.dto.Realm;
 import com.kamalova.realm.service.RealmService;
 import io.swagger.annotations.Api;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/service/user")
+@RequestMapping(name = "realm", path = "/service/user")
 @Api(value = "Realm Management System")
 public class Controller {
 
@@ -39,21 +40,22 @@ public class Controller {
     @PostMapping(value = "/realm",
             consumes = {"application/json", "application/xml"},
             produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> createRealm(@RequestBody ShortRealItem shortRealItem) {
-        if (StringUtils.isEmpty(shortRealItem.getName())) {
-            ResponseEntity.badRequest().body("InvalidRealmName");
+    public ResponseEntity<Object> createRealm(@RequestBody RealmRequest realmRequest) {
+        if (StringUtils.isEmpty(realmRequest.getName())) {
+            return ResponseEntity.badRequest().body(new ApiError("InvalidRealmName"));
         }
-        if (realmService.createRealm(shortRealItem.getName(), shortRealItem.getDescription())) {
-            return ResponseEntity.status(201).body("Created");
+        Realm realm = realmService.createRealm(realmRequest.getName(), realmRequest.getDescription());
+        if (realm != null) {
+            return ResponseEntity.status(201).body(realm);
         } else {
-            return ResponseEntity.badRequest().body("DuplicateRealmName");
+            return ResponseEntity.badRequest().body(new ApiError("DuplicateRealmName"));
         }
     }
 
     /*
     GET method - get realm
      */
-    @ApiOperation(value = "View realm by id", response = Realm.class)
+    @ApiOperation(value = "View realm by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved data"),
             @ApiResponse(code = 400, message = "Invalid argument"),
@@ -61,17 +63,21 @@ public class Controller {
     })
     @GetMapping(value = "/realm/{id}",
             produces = {"application/json", "application/xml"})
-    public ResponseEntity<Realm> getRealmById(@PathVariable(value = "id") Long realmId) {
-        Optional<Realm> realm = realmService.getRealm(realmId);
-        if (realm.isPresent()) {
-            return ResponseEntity.ok().body(realm.get());
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Object> getRealmById(@PathVariable(value = "id") String realmId) {
+        Long id;
+        try {
+            id = Long.valueOf(realmId);
+        } catch (NumberFormatException ex) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiError("InvalidArgument"));
         }
-    }
 
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
+        Optional<Realm> realm = realmService.getRealm(id);
+        if (realm.isPresent()) {
+            return ResponseEntity.ok().header("OK").body((realm.get()));
+        } else {
+            return ResponseEntity.status(404)
+                    .body(new ApiError("RealmNotFound"));
+        }
     }
 }
