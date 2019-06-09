@@ -20,7 +20,7 @@ public class Swagger2Config {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("com.kamalova.realm.controller"))
+                        .basePackage("com.kamalova.realm.api.controller"))
                 .paths(path())
                 .build()
                 .useDefaultResponseMessages(false)
@@ -30,7 +30,7 @@ public class Swagger2Config {
 
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API")
-                .description("Employee Management REST API")
+                .description("Realm Management REST API")
                 .contact(new Contact("Irina Kamalova", "https://github.com/irenkamalova", "irenkamalova@gmail.com"))
                 .version("1.0.0")
                 .build();
