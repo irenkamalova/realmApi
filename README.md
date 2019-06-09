@@ -9,8 +9,8 @@ Package jar (it also will run all tests) then execute it:
 
 ```bash
 mvn clean package
-cd target realm-1.0-SNAPSHOT.jar
-java -jar
+cd target 
+java -jar realm-1.0-SNAPSHOT.jar
 ```
 
 ## Usage
