@@ -2,7 +2,7 @@ package com.kamalova.realm.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamalova.realm.api.model.RealmRequest;
-import com.kamalova.realm.dao.Realm;
+import com.kamalova.realm.dao.model.Realm;
 import com.kamalova.realm.service.RealmService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

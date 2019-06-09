@@ -1,4 +1,4 @@
-package com.kamalova.realm.dao;
+package com.kamalova.realm.dao.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;

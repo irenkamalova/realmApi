@@ -1,6 +1,7 @@
 package com.kamalova.realm.repository;
 
-import com.kamalova.realm.dao.Realm;
+import com.kamalova.realm.dao.RealmRepository;
+import com.kamalova.realm.dao.model.Realm;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
